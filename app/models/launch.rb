@@ -1,3 +1,3 @@
 class Launch < ActiveRecord::Base
-    belings_to :company
+    belongs_to :company
 end
