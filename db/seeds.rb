@@ -9,7 +9,7 @@ launches.each do |launch|
         details: launch['details'],
         success: launch['success'],
         failure_notes: launch['failures'],
-        flight_number: ['flight_number'],
+        flight_number: launch['flight_number'],
         company_id: 1,
     )
 end
