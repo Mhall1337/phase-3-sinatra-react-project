@@ -7,10 +7,10 @@ class ApplicationController < Sinatra::Base
     launches.to_json
   end
 
-  # post '/launches' do
-  #   # launches = Launch.create(params)
-  #   # launches.to_json
-  # end
+  post '/launches' do
+    launches = Launch.create(params)
+    launches.to_json
+  end
 
   delete '/launches/:id' do
     launches = Launch.find(params[:id])
