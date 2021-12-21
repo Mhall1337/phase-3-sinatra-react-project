@@ -19,6 +19,11 @@ end
     companies.to_json
   end
 
+  post '/companies' do
+    company = Company.create(params)
+    company.to_json
+  end
+
   get "/launches" do
    serialize(Launch.all)
   end
