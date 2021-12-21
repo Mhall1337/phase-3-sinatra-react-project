@@ -23,6 +23,11 @@ end
     company = Company.create(params)
     company.to_json
   end
+  delete '/companies/:id' do
+    launches = Company.find(params[:id])
+    launches.destroy
+    launches.to_json
+  end
 
   get "/launches" do
    serialize(Launch.all)
