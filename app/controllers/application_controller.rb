@@ -13,6 +13,12 @@ def serialize(object)
   }
 )
 end
+
+  get '/companies' do
+    companies = Company.all
+    companies.to_json
+  end
+
   get "/launches" do
    serialize(Launch.all)
   end
