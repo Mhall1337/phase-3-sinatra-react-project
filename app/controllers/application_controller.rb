@@ -1,3 +1,4 @@
+require 'pry'
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
@@ -12,6 +13,10 @@ def serialize(object)
     }
   }
 )
+end
+def find_company_id(params)
+  company = Company.find_by(company_name: params[:companyName])
+  company.id
 end
 
   get '/companies' do
@@ -33,9 +38,10 @@ end
    serialize(Launch.all)
   end
 
-  post '/launches' do
-    launches = Launch.create(params)
-    launches.to_json
+  post '/launches' do 
+    launches = Launch.create(
+      name: params[:name], details: params[:details], success: params[:success], company_id: self.find_company_id(params))
+    serialize(launches)
   end
 
   delete '/launches/:id' do
