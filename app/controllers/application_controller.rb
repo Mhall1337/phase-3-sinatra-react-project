@@ -3,7 +3,7 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # # Add your routes here
-def serialize(object)
+def include_company(object)
   object.to_json(
   include: {
     company: {
@@ -29,19 +29,20 @@ end
     company.to_json
   end
   delete '/companies/:id' do
-    launches = Company.find(params[:id])
-    launches.destroy
-    launches.to_json
+    company = Company.find(params[:id])
+    company.destroy
+    company.to_json
+ 
   end
 
   get "/launches" do
-   serialize(Launch.all)
+    include_company(Launch.all)
   end
 
   post '/launches' do 
     launches = Launch.create(
-      name: params[:name], details: params[:details], success: params[:success], company_id: self.find_company_id(params))
-    serialize(launches)
+      name: params[:name], details: params[:details], success: params[:success], flight_number: params[:flightNumber],company_id: find_company_id(params))
+      include_company(launches)
   end
 
   delete '/launches/:id' do
